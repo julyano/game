@@ -1,4 +1,4 @@
-node-postgres-restapi
+game
 =====================
 
 A bootstrap to create RESTful APIs with [Node.js](https://nodejs.org/), [Express](http://expressjs.com/) and [Postgres](https://www.postgresql.org/).

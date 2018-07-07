@@ -1,7 +1,13 @@
 {
-  "name": "node-mvc",
+  "name": "juliano_cardoso",
   "version": "1.0.0",
   "main": "server.js",
+  "homepage": "https://github.com/julyano",
+  "email" : "cardoso.juliano@gmail.com",
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/julyano/game"
+  },
   "dependencies": {
     "bluebird": "^3.3.4",
     "body-parser": "^1.18.3",
