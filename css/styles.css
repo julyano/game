@@ -46,7 +46,8 @@ ul.topnav li.right {float: right;}
   font-size: 31px;
   letter-spacing: 2.8px;
   word-spacing: -1px;
-  color: #C9B2A4;
+  /*color: #C9B2A4;*/
+  color: #5C4637;
   font-weight: 700;
   text-decoration: none;
   font-style: normal;
@@ -93,7 +94,7 @@ div#line3 {
 
 .box1 {
   left: 50px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box2 {
@@ -103,7 +104,7 @@ div#line3 {
 
 .box3 {
   left: 200px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box4 {
@@ -113,7 +114,7 @@ div#line3 {
 
 .box5 {
   left: 350px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box6 {
@@ -123,7 +124,7 @@ div#line3 {
 
 .box7 {
   left: 50px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box8 {
@@ -133,7 +134,7 @@ div#line3 {
 
 .box9 {
   left: 200px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box10 {
@@ -143,7 +144,7 @@ div#line3 {
 
 .box11 {
   left: 350px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box12 {
@@ -153,7 +154,7 @@ div#line3 {
 
 .box13 {
   left: 50px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box14 {
@@ -163,7 +164,7 @@ div#line3 {
 
 .box15 {
   left: 200px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box16 {
@@ -173,7 +174,7 @@ div#line3 {
 
 .box17 {
   left: 350px;
-  background-color: #9B6A4E;
+  background-color: #5C4637;
 }
 
 .box18 {

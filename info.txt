@@ -1,3 +1,4 @@
+#Heroku
 Creating heroku-postgresql:hobby-dev on ⬢ jucapp... free
 Database has been created and is available
  ! This database is empty. If upgrading, you can transfer
@@ -11,4 +12,13 @@ Use heroku addons:docs heroku-postgresql to view documentation
 
 package.json -> package-lock.json -> node_modules "através do comando 'npm install'"
 server.js -> index.js -> queries.js
+
+#Git
+
+echo "# game" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/julyano/game.git
+git push -u origin master
 
