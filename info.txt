@@ -1,0 +1,14 @@
+Creating heroku-postgresql:hobby-dev on ⬢ jucapp... free
+Database has been created and is available
+ ! This database is empty. If upgrading, you can transfer
+ ! data from another database with pg:copy
+Created postgresql-pointy-76891 as DATABASE_URL
+Use heroku addons:docs heroku-postgresql to view documentation
+
+
+
+#Modelagem do projeto
+
+package.json -> package-lock.json -> node_modules "através do comando 'npm install'"
+server.js -> index.js -> queries.js
+
