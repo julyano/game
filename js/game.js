@@ -53,15 +53,10 @@ var played = [];
         delay: 100,
         duration: '1000',        
         translateX: [
-          { value: 2.50, duration: 50 },
-        ],
-        translateY: [
-          { value: 2.50, duration: 50 },
+          { value: 0, duration: 50 },
         ],
         rotate: '-10turn',
         borderRadius: '100%',
-        width: '95px',
-        height: '95px',
         autoplay: false
       });
 
