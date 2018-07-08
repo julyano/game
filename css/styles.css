@@ -47,20 +47,23 @@ ul.topnav li.right {float: right;}
   letter-spacing: 2.8px;
   word-spacing: -1px;
   /*color: #C9B2A4;*/
-  color: #5C4637;
+  color: #A38977;
   font-weight: 700;
   text-decoration: none;
   font-style: normal;
   font-variant: small-caps;
   text-transform: none;
+  text-shadow: 2px 2px 4px #3E1E0A;
+  opacity: 0.4;
 }
 
 .divbody {
   position: relative;
-  margin-top: 60px;
+  /*margin-top: 60px;
   margin-bottom: auto;
-  margin-left: 410px;
-  margin-right: 500px;
+  margin-left: auto;
+  margin-right: 500px;*/
+  margin: auto;
   width: 500px;
   height: 450px;
 }
@@ -90,6 +93,7 @@ div#line3 {
   margin: 4px;
   display: inline-block;
   border-radius: 0%;
+  opacity: 0.5;
 }
 
 .box1 {

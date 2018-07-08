@@ -1,4 +1,4 @@
-var t = 1;
+var t = 'ok';
 
 function turn(){
     return t;

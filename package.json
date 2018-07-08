@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "server.js",
   "homepage": "https://julyano.github.io/",
-  "email" : "cardoso.juliano@gmail.com",
-  "repository" : { 
-    "type" : "git",
-    "url" : "https://github.com/julyano/game.git"
+  "email": "cardoso.juliano@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julyano/game.git"
   },
   "dependencies": {
     "bluebird": "^3.3.4",
@@ -15,6 +15,7 @@
     "express": "^4.16.3",
     "jquery": "^3.3.1",
     "morgan": "^1.9.0",
+    "nodemon": "^1.17.5",
     "pg": "7.4.1",
     "pg-promise": "^3.2.3"
   }
