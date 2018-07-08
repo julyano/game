@@ -125,10 +125,10 @@ function eventBox(id) {
   //}
 };
 
-function changeBackColor(id){
-  var box = anime({
-    targets: 'div.box.box' + id,
-    opacity: 50,
-    autoplay: false
-  });
+function changeColorOver(el){
+  el.style.opacity = 100;
+}
+
+function changeColorOut(el){
+  el.style.opacity = 0.5;
 }
