@@ -27,12 +27,9 @@ ul.topnav li a.active {background-color: #4CAF50;}
 
 ul.topnav li.right {float: right;}
 
-@media screen and (max-width: 280px){
+@media screen and (max-width: 600px){
   ul.topnav li.right, 
   ul.topnav li {float: none;}
-  divbody{
-    width: 100%;
-  }
 }
 
 .gmd-3 {
@@ -57,7 +54,7 @@ ul.topnav li.right {float: right;}
   font-variant: small-caps;
   text-transform: none;
   text-shadow: 2px 2px 4px #3E1E0A;
-  opacity: 50;
+  opacity: 0.4;
 }
 
 .divbody {
@@ -67,124 +64,124 @@ ul.topnav li.right {float: right;}
   margin-left: auto;
   margin-right: 500px;*/
   margin: auto;
-  width: 80%;
-  height: 60%;
+  width: 500px;
+  height: 450px;
 }
 
 div#line1 {
-  width: 100%;
+  width: 450px;
   height: 150px;
 }
 
 div#line2 {
   top: 150px;
-  width: 100%;
+  width: 450px;
   height: 150px;
 }
 
 div#line3 {
   top: 150px;
-  width: 100%;
+  width: 450px;
   height: 150px;
 }
 
 
 .box {
   position: absolute;
-  width: 9.6%;
-  height: 22%;
-  margin: auto;
+  width: 100px;
+  height: 100px;
+  margin: 4px;
   display: inline-block;
   border-radius: 0%;
-  opacity: 80;
+  opacity: 0.5;
 }
 
 .box1 {
-  left: 20%;
-  background-color: #465FC0;
+  left: 50px;
+  background-color: #5C4637;
 }
 
 .box2 {
-  left: 20%;
-  background-color: #465FC0;
+  left: 50px;
+  background-color: #803916;
 }
 
 .box3 {
-  left: 45%;
-  background-color: #465FC0;
+  left: 200px;
+  background-color: #5C4637;
 }
 
 .box4 {
-  left: 45%;  
-  background-color: #465FC0;
+  left: 200px;  
+  background-color: #803916;
 }
 
 .box5 {
-  left: 70%;
-  background-color: #465FC0;
+  left: 350px;
+  background-color: #5C4637;
 }
 
 .box6 {
-  left: 70%;  
-  background-color: #465FC0;
+  left: 350px;  
+  background-color: #803916;
 }
 
 .box7 {
-  left: 20%;
-  background-color: #465FC0;
+  left: 50px;
+  background-color: #5C4637;
 }
 
 .box8 {
-  left: 20%;  
-  background-color: #465FC0;
+  left: 50px;  
+  background-color: #803916;
 }
 
 .box9 {
-  left: 45%;
-  background-color: #465FC0;
+  left: 200px;
+  background-color: #5C4637;
 }
 
 .box10 {
-  left: 45%;  
-  background-color: #465FC0;
+  left: 200px;  
+  background-color: #803916;
 }
 
 .box11 {
-  left: 70%;
-  background-color: #465FC0;
+  left: 350px;
+  background-color: #5C4637;
 }
 
 .box12 {
-  left: 70%;  
-  background-color: #465FC0;
+  left: 350px;  
+  background-color: #803916;
 }
 
 .box13 {
-  left: 20%;
-  background-color: #465FC0;
+  left: 50px;
+  background-color: #5C4637;
 }
 
 .box14 {
-  left: 20%;  
-  background-color: #465FC0;
+  left: 50px;  
+  background-color: #803916;
 }
 
 .box15 {
-  left: 45%;
-  background-color: #465FC0;
+  left: 200px;
+  background-color: #5C4637;
 }
 
 .box16 {
-  left: 45%;  
-  background-color: #465FC0;
+  left: 200px;  
+  background-color: #803916;
 }
 
 .box17 {
-  left: 70%;
-  background-color: #465FC0;
+  left: 350px;
+  background-color: #5C4637;
 }
 
 .box18 {
-  left: 70%;  
-  background-color: #465FC0;
+  left: 350px;  
+  background-color: #803916;
 }
