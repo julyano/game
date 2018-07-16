@@ -1,27 +1,48 @@
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>sistema de cadastro</title>
+
+    <link type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <title>Game</title>
+
 </head>
-<body>
-        <div>
-            <span>
-                    <h1 >Sistema de Cadastro</h1>
-                    <div>
-                        <div>
+
+<body class="homebody">
+    <ul class="topnav gmd-3">
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/jogos">Jogos</a></li>
+        <li><a href="#cadastro">Cadastro</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+        <li class="right"><a href="/login">Login</a></li>
+    </ul>
+    <div>
+        <span>
+            <h1 >Login</h1>
+            <form method="post">
+                <div align="center">
+                        <div style="margin-top: .5%">
                             <input type="email" name="input-email" id="input-email" placeholder="Email" required="true">
                         </div>
-                        <div>
+                        <div style="margin-top: .5%">
                             <input type="password" name="input-password" id="input-password" placeholder="Password" required="true">
                         </div>
-                        <div>
-                            <button type="submit" on-touch="OnClick()">Entrar</button>
+                        <div style="margin-top: .5%">
+                            <button type="submit" onclick="login()">Entrar</button>
                         </div>
                     </div>
+                </form>
             </span>
-            
-        </div>
+
+    </div>
+    <div id="cadastro">
+        <h1>Cadastro</h1>
+      </div>
 </body>
+
 </html>

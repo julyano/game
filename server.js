@@ -1,9 +1,11 @@
 var express = require('express');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var request = require('request');
 
 //var api = require('./api/index');
 var api = require('./controllers/controller.index');
+require('dotenv').config();
 
 var app = express();
 
@@ -46,9 +48,32 @@ app.set("env", process.env.NODE_ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");
 app.set("port", process.env.PORT || 3000);
 
+/*app.post('/captcha', function(req, res) {
+    console.log('CAPTCHA');
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
+    {
+      return res.json({"responseError" : "Please select captcha first"});
+    }
+    const secretKey = process.env.SECRET_KEY;
+  
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  
+    request(verificationURL,function(error,response,body) {
+      body = JSON.parse(body);
+  
+      if(body.success !== undefined && !body.success) {
+        return res.json({"responseError" : "Failed captcha verification"});
+      }
+      console.log('sucesso');
+      res.json({"responseSuccess" : "Sucess"});
+      //res.redirect('/');
+    });
+  });
+*/
+
 app.listen(app.get("port"), function () {
     console.log('\n' + '**********************************');
-    console.log('REST API listening on port ' + app.get("port"));
+    console.log('Listening on port ' + app.get("port"));
     console.log('**********************************' + '\n');
 });
 

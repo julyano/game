@@ -57,6 +57,23 @@ ul.topnav li.right {float: right;}
   opacity: 0.4;
 }
 
+.container {
+  width: 538px;
+}
+section,
+aside {
+  width: 1.858736059%; /*  10px ÷ 538px = .018587361 */
+}
+section {
+  float: left;
+  width: 63.197026%;    /* 340px ÷ 538px = .63197026 */ 
+}
+aside {
+  float: right;
+  width: 29.3680297%;  /* 158px ÷ 538px = .293680297 */
+}
+
+
 .divbody {
   position: relative;
   /*margin-top: 60px;
