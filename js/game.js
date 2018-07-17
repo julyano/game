@@ -335,7 +335,35 @@ function init(){
   var els = document.querySelectorAll('#tabuleiro .box');
   var box = defaultValues(els);
   box.play();
+
+  /*var captcha_pass = document.getElementById('captcha-pass');
+  captcha_pass.setAttribute(data-sitekey,process.env.SITE_KEY);
+
+  var captcha_cad = document.getElementById('captcha-cad').setAttribute(data-sitekey,process.env.SITE_KEY);
+  captcha_cad.setAttribute(data-sitekey,process.env.SITE_KEY);*/
+  console.log('re');
+  reload_captcha();
   varDefaultValues();
+}
+
+function reload_captcha(){
+  var els = document.querySelectorAll('g-recaptcha');
+  var els_len = els.length;
+  var parent;
+  for(i = 1;i <= els_len;++i){
+    var el = document.getElementById('c'+i);
+    parent = document.getElementById('captcha'+i); 
+    parent.removeChild(el);
+    var div = document.createElement('div');
+    div.id = 'c'+i;
+    div.className = 'g-recaptcha';
+    div.style = 'margin: 1%;';
+    var att = document.createAttribute('data-sitekey');
+    att.value = process.env.SITE_KEY;
+    div.setAttributeNode(att);
+    console.log('cap');
+    document.getElementById('captcha'+i).appendChild(div);    
+  }
 }
 
 function novoJogo4(){
