@@ -44,36 +44,59 @@ app.use('/js',express.static('js'));
 // Server Setup
 //////////////////
 
-app.set("env", process.env.NODE_ENV || "development");
+var secret_key = '';
+var site_key = '';
+var node_env = process.env.NODE_ENV;
+
+if(node_env == 'dev'){// se o ambiente for de desenvolvimento
+    secret_key = process.env.SECRET_KEY_DEV;
+    site_key = process.env.SITE_KEY_DEV;
+
+    process.env.SECRET_KEY = secret_key;
+    process.env.SITE_KEY = site_key;
+
+    console.log('\n' + '**********************************');
+    console.log('[ATENÇÃO]: Ambiente de Desenvolvimento');
+    console.log('**********************************' + '\n');
+}else if(node_env == 'tst'){
+    secret_key = process.env.SECRET_KEY_TST;
+    site_key = process.env.SITE_KEY_TST;
+
+    process.env.SECRET_KEY = secret_key;
+    process.env.SITE_KEY = site_key;
+
+    console.log('\n' + '**********************************');
+    console.log('[ATENÇÃO]: Ambiente de Teste');
+    console.log('**********************************' + '\n');
+}else if(node_env == 'prd'){
+    secret_key = process.env.SECRET_KEY_PRD;
+    site_key = process.env.SITE_KEY_PRD;
+
+    process.env.SECRET_KEY = secret_key;
+    process.env.SITE_KEY = site_key;
+
+    console.log('\n' + '**********************************');
+    console.log('[ATENÇÃO]: Ambiente de Produção');
+    console.log('**********************************' + '\n');
+}else{
+    secret_key = process.env.SECRET_KEY_DEV;
+    site_key = process.env.SITE_KEY_DEV;
+
+    process.env.SECRET_KEY = secret_key;
+    process.env.SITE_KEY = site_key;
+
+    console.log('\n' + '**********************************');
+    console.log('[ATENÇÃO]: Ambiente de Desenvolvimento');
+    console.log('**********************************' + '\n');
+}
+
+app.set("env", process.env.ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");
 app.set("port", process.env.PORT || 3000);
 
-/*app.post('/captcha', function(req, res) {
-    console.log('CAPTCHA');
-    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
-    {
-      return res.json({"responseError" : "Please select captcha first"});
-    }
-    const secretKey = process.env.SECRET_KEY;
-  
-    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-  
-    request(verificationURL,function(error,response,body) {
-      body = JSON.parse(body);
-  
-      if(body.success !== undefined && !body.success) {
-        return res.json({"responseError" : "Failed captcha verification"});
-      }
-      console.log('sucesso');
-      res.json({"responseSuccess" : "Sucess"});
-      //res.redirect('/');
-    });
-  });
-*/
-
 app.listen(app.get("port"), function () {
     console.log('\n' + '**********************************');
-    console.log('Listening on port ' + app.get("port"));
+    console.log('Servidor escutando na porta ' + app.get("port"));
     console.log('**********************************' + '\n');
 });
 
