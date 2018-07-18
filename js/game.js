@@ -38,7 +38,7 @@ var sol = 0;
 
 var _vx = 0;
 var _vo = 0;
-
+var testex = "ola"
 /*var simb_ia = 0;
 var simb = 1;
 var tab = [0,0,0,0,0,0,0,0,0];

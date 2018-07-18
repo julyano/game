@@ -46,8 +46,6 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   var param = req.body;
   //console.log(param);
-  console.log(param.loginmail);
-  console.log(param.loginpassword);
   //res.redirect('/captcha');
 });
 
@@ -57,12 +55,9 @@ router.post('/cadastro', (req, res) => {
   if(param.password != param.repassword){
     res.redirect('/#login');
   }
-  console.log(param.cadastromail);
-  console.log(param.cadastropassword);
 });
 
 router.post('/captcha', function(req, res) {
-  console.log('CAPTCHA');
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
   {
     return res.json({"responseError" : "Please select captcha first"});
@@ -77,35 +72,18 @@ router.post('/captcha', function(req, res) {
     if(body.success !== undefined && !body.success) {
       return res.json({"responseError" : "Failed captcha verification"});
     }
-    console.log('sucesso '+req.body.loginmail);
+
     if(req.body.loginmail === undefined || req.body.loginmail === '' || req.body.loginmail === null)
       if(req.body.cadastromail === undefined || req.body.cadastromail === '' || req.body.cadastromail === null)
         res.sendFile(erro);
-    if(req.body.cadastromail) res.redirect('/#login');
-    if(req.body.loginmail) res.redirect('/#home');
-    //res.json({"responseSuccess" : "Sucess"});
-    //res.redirect('/');
+    if(req.body.cadastromail){
+      res.redirect('/#login');
+    }
+
+    if(req.body.loginmail){
+      res.redirect('/#home');
+    }
   });
 });
-
-/*var fs = require('fs');
-var Path = require('path');
-var _path = Path.join(__dirname, '../views');
-var file_view = _path+'/view.game.html';
-
-console.log('path = '+ _path);
-
-fs.readFile(file_view, function (err, html) {
-  
-  if (err) {
-      console.log('[ERRO] HTML = ' +  html);
-      throw err; 
-  }
-
-  router.get('/', (req, res) => {
-    res.send(''+html); 
-  });
-    
-});*/
 
 module.exports = [router];
