@@ -39,56 +39,11 @@ app.use('/', api);
 
 app.use('/css',express.static('css'));
 app.use('/js',express.static('js'));
+app.use('/api',express.static('api'));
 
 //////////////////
 // Server Setup
 //////////////////
-
-var secret_key = '';
-var site_key = '';
-var node_env = process.env.NODE_ENV;
-
-if(node_env == 'dev'){// se o ambiente for de desenvolvimento
-    secret_key = process.env.SECRET_KEY_DEV;
-    site_key = process.env.SITE_KEY_DEV;
-
-    process.env.SECRET_KEY = secret_key;
-    process.env.SITE_KEY = site_key;
-
-    console.log('\n' + '**********************************');
-    console.log('[ATENÇÃO]: Ambiente de Desenvolvimento');
-    console.log('**********************************' + '\n');
-}else if(node_env == 'tst'){
-    secret_key = process.env.SECRET_KEY_TST;
-    site_key = process.env.SITE_KEY_TST;
-
-    process.env.SECRET_KEY = secret_key;
-    process.env.SITE_KEY = site_key;
-
-    console.log('\n' + '**********************************');
-    console.log('[ATENÇÃO]: Ambiente de Teste');
-    console.log('**********************************' + '\n');
-}else if(node_env == 'prd'){
-    secret_key = process.env.SECRET_KEY_PRD;
-    site_key = process.env.SITE_KEY_PRD;
-
-    process.env.SECRET_KEY = secret_key;
-    process.env.SITE_KEY = site_key;
-
-    console.log('\n' + '**********************************');
-    console.log('[ATENÇÃO]: Ambiente de Produção');
-    console.log('**********************************' + '\n');
-}else{
-    secret_key = process.env.SECRET_KEY_DEV;
-    site_key = process.env.SITE_KEY_DEV;
-
-    process.env.SECRET_KEY = secret_key;
-    process.env.SITE_KEY = site_key;
-
-    console.log('\n' + '**********************************');
-    console.log('[ATENÇÃO]: Ambiente de Desenvolvimento');
-    console.log('**********************************' + '\n');
-}
 
 app.set("env", process.env.ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");

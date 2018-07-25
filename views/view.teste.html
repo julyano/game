@@ -1,77 +1,89 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {margin:0;}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/snackbar.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <style>
+    body {
+      margin: 0;
+    }
 
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
 
-.navbar a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
 
-.navbar a:hover {
-  background: #ddd;
-  color: black;
-}
+    .navbar a:hover {
+      background: #ddd;
+      color: black;
+    }
 
-.main {
-  padding: 16px;
-  margin-top: 30px;
-  height: 1500px; /* Used in this example to enable scrolling */
-}
-</style>
+    .main {
+      padding: 16px;
+      margin-top: 30px;
+      height: 1500px;
+      /* Used in this example to enable scrolling */
+    }
+    
+  </style>
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
+
 <body>
 
-<div class="navbar">
-  <a href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-</div>
+  <div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+  </div>
 
-<div class="main">
-    <div class="container"><br />
-      <h1>Teste</h1><br />
-        <form method="post" action="/captcha">
-        <div class="row">
-          <div class="col-4"></div>
-          <div class="col-4">
-            <label for="name">Name:</label>
-            <input type="text" name="name">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-4"></div>
-            <div class="col-4">
-              <div class="g-recaptcha" data-sitekey="6LdnWGQUAAAAAN-pRBGwN9RfZKt_HTYTXaFCtItY"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-4"></div>
-          <div class="col-4">
-            <button type="submit" style="margin-left:38px">Send</button>
-          </div>
-        </div>
-      </form>
+  <div class="main">
+    <div id="login" class="container"><br />
+      <h1>Teste</h1>
+      <!-- Use a button to open the snackbar -->
+      <button onclick="login('skblogin')">Show Snackbar</button>
+
+      <!-- The actual snackbar -->
+      <div id="skblogin"> </div>
     </div>
-</div>
+  </div>
 
 </body>
+
+<script>
+  function login(id) {
+    // Get the snackbar DIV
+    var msgSuccess = ' Sucesso!';
+    var layoutSuccess = 'snackbar sucesso far fa-thumbs-up';
+    var x = document.getElementById(id);
+
+    // Add the "show" class to DIV
+    x.className = layoutSuccess;
+    x.innerHTML = msgSuccess;
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () { 
+      x.className = x.className.replace(layoutSuccess, '');
+      x.innerHTML = x.innerHTML.replace(msgSuccess,'');
+    }, 3000);
+  }
+
+</script>
+
 </html>
