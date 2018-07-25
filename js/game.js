@@ -38,7 +38,8 @@ var sol = 0;
 
 var _vx = 0;
 var _vo = 0;
-var testex = "ola"
+var _emp = 0;
+
 /*var simb_ia = 0;
 var simb = 1;
 var tab = [0,0,0,0,0,0,0,0,0];
@@ -65,7 +66,10 @@ function eventBox(id) {
       var vitoria = document.getElementById('vitoria');
       var vx = document.getElementById('vx');
       var vo = document.getElementById('vo');
-      
+      var vs = document.getElementById('vs');
+      vx.innerHTML = _vx + ' ';
+      vs.innerHTML = 'X ';
+      vo.innerHTML = _vo + ' ';
       if(sol == 1){
         vitoria.innerHTML = '\'X\' ganhou';
         ++_vx;
@@ -92,7 +96,9 @@ function eventBox(id) {
         changeColorElement(document.querySelector('.box' + _id_ia));
 
         document.querySelector('.box' + _id_ia).onclick = box3.play();
-        document.querySelector('.box' + id_ia).onclick = box4.play();  
+        document.querySelector('.box' + id_ia).onclick = box4.play();
+        
+        
         
         sol = verificaSolucaoO(id_ia);
         if(sol == 2){
@@ -105,7 +111,12 @@ function eventBox(id) {
       }
 
       if(played.length == 9 && sol != 2 && sol != 1){
-        vitoria.innerHTML = 'Empate';
+        ++_emp;
+        var aux_emp = ""+_emp;
+        vitoria.innerHTML = aux_emp +' Empate';
+        vx.innerHTML = '';
+        vo.innerHTML = '';
+        vs.innerHTML = '';
         vitoria.opacity = 50;
       }
     }
@@ -334,7 +345,14 @@ function novoJogo() {
 function init(){
   var els = document.querySelectorAll('#tabuleiro .box');
   var box = defaultValues(els);
+  
+  /*if (typeof dtb.getDataBindign != "undefined" || dtb.getDataBinding != null) {
+    if(dtb.getDataBinding.indexOf('loginmail') > -1){
+      login = dtb.getDataBinding.getItem('loginmail');
+    }
+  }*/
   box.play();
+
   varDefaultValues();
 }
 
@@ -368,6 +386,14 @@ function varDefaultValues(){
   col2O = 0;
   col3O = 0;
   sol = 0;
+
+  var vitoria = document.getElementById('vitoria');
+  var vx = document.getElementById('vx');
+  var vo = document.getElementById('vo');
+  var vs = document.getElementById('vs');
+  vx.innerHTML = _vx + ' ';
+  vs.innerHTML = 'X ';
+  vo.innerHTML = _vo + ' ';
 
 }
 

@@ -41,12 +41,13 @@ app.use('/', api);
 
 app.use('/css',express.static('css'));
 app.use('/js',express.static('js'));
+app.use('/api',express.static('api'));
 
 //////////////////
 // Server Setup
 //////////////////
 
-app.set("env", process.env.NODE_ENV || "development");
+app.set("env", process.env.ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");
 app.set("port", process.env.PORT || 3000);
 

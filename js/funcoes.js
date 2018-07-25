@@ -4,6 +4,10 @@ var speed = 1;
 var fator = .18;
 var scroller = null;
 
+var variableName;
+var incteste;
+
+/*
 function initScroll(elementId) {
 	destination = document.getElementById(elementId).offsetTop;
 
@@ -13,12 +17,6 @@ function initScroll(elementId) {
 
 	marginY = marginY + speed;
 	speed += .1;
-	/*fator *= 1.8;
-  
-	if(speed >= 10){
-		 speed *= .1;
-		 fator = speed;
-	  }*/
 
 	if (marginY >= destination) {
 		clearTimeout(scroller);
@@ -50,7 +48,7 @@ function toTop() {
 function scroll() {
 	jQuery.extend(jQuery.easing, { easeInOutExpo: function (e, f, a, h, g) { if (f == 0) { return a } if (f == g) { return a + h } if ((f /= g / 2) < 1) { return h / 2 * Math.pow(2, 10 * (f - 1)) + a } return h / 2 * (-Math.pow(2, -10 * --f) + 2) + a } });
 }
-
+*/
 /*
 
 function me(_tab, n, profundidade, t,posicao, fator){
@@ -131,4 +129,3 @@ function vme(turno){
       return posicao;
   }
 */
-
