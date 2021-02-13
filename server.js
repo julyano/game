@@ -7,6 +7,7 @@ var request = require('request');
 var api = require('./controllers/controller.index');
 require('dotenv').config();
 
+// TODO: remover variável
 var enviroment = "Produção";
 
 var app = express();
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // CORS
 // This allows client applications from other domains use the API Server
 app.use(function(req, res, next) {
+    //TODO: melhorar configurações do CORS
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -53,7 +55,12 @@ app.set("port", process.env.PORT || 3000);
 
 app.listen(app.get("port"), function () {
     console.log('\n' + '**********************************');
-    console.log('[Atenção]: Ambiente de ' + enviroment);
+    if(process.env.ENV === "development") {
+        console.log('[Atenção]: Ambiente de Desenvolvimento');
+    } else {
+        console.log('[Atenção]: Ambiente de Produção');
+    }
+
     console.log('Servidor escutando na porta ' + app.get("port"));
     console.log('**********************************' + '\n');
 });

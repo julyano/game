@@ -1,3 +1,4 @@
+//TODO: Substituir funções deprecated
 $(document).ready(function() {
     var $menu = $(".navbar");
     var $menu_a = $("a", $menu);
