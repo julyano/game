@@ -9,6 +9,7 @@
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/snackbar.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css"/>
   
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
@@ -17,6 +18,8 @@
   <script src="../js/game.js"></script>
   <script src="../js/funcoes.js"></script>
   <script src="../js/scroll.js"></script>  
+  <script language="javascript" src="../js/bootstrap.min.js"></script>
+
   
 
   <title>Game</title>
@@ -39,43 +42,52 @@
   <section id="jogos" class="jogos">
     <div class="container" style="margin-top: 2%; margin-bottom: 2%;">
       <div class="col-12 font-placar header" align="center">
-        <span id="vitoria" align="right">Placar: </span>
-        <span id="vx" align="right">0 </span>
-        <span id="vs" align="right">X </span>
-        <span id="vo" align="right">0 </span>
+        <span id="victory" align="right">Placar: </span>
+        <span id="playerWins" align="right">0 </span>
+        <span id="versus" align="right">X </span>
+        <span id="opponentWins" align="right">0 </span>
       </div>
     </div>
 
     <div class="container">
-      <div id="tabuleiro" class="divbody">
-        <div align="center"><button id="btnstart" type="button" onclick="novoJogo()">Novo Jogo?</button></div>
-
-        <div id="line1" style="margin-top: 20px;">
-          <div id="box1" class="box box1 gmd-3" onmouseover="changeColorOver(1)" onmouseout="changeColorOut(1)"></div>
-          <div id="box2" name="0" class="box box2 gmd-3" onclick="eventBox(2)" onmouseover="changeColorOver(2)" onmouseout="changeColorOut(2)"></div>
-          <div id="box3" class="box box3 gmd-3" onmouseover="changeColorOver(3)" onmouseout="changeColorOut(3)"></div>
-          <div id="box4" name="1" class="box box4 gmd-3" onclick="eventBox(4)" onmouseover="changeColorOver(4)" onmouseout="changeColorOut(4)"></div>
-          <div id="box5" class="box box5 gmd-3" onmouseover="changeColorOver(5)" onmouseout="changeColorOut(5)"></div>
-          <div id="box6" name="2" class="box box6 gmd-3" onclick="eventBox(6)" onmouseover="changeColorOver(6)" onmouseout="changeColorOut(6)"></div>
+      <div class="row d-flex">
+        <div class="col-8 d-flex justify-content-end">
+          <div id="tabuleiro" class="divbody">
+            <div class="d-flex justify-content-center ml-5 mr-5 mt-4 mb-4"><button id="btnstart" type="button" class="btn btn-sm btn-outline-secondary" onclick="newGame()">Novo Jogo?</button></div>
+    
+            <div id="line1" style="margin-top: 20px;">
+              <div id="box1" class="box box1 gmd-3" onmouseover="changeColorOver(1)" onmouseout="changeColorOut(1)"></div>
+              <div id="box2" name="0" class="box box2 gmd-3" onclick="eventBox(2)" onmouseover="changeColorOver(2)" onmouseout="changeColorOut(2)"></div>
+              <div id="box3" class="box box3 gmd-3" onmouseover="changeColorOver(3)" onmouseout="changeColorOut(3)"></div>
+              <div id="box4" name="1" class="box box4 gmd-3" onclick="eventBox(4)" onmouseover="changeColorOver(4)" onmouseout="changeColorOut(4)"></div>
+              <div id="box5" class="box box5 gmd-3" onmouseover="changeColorOver(5)" onmouseout="changeColorOut(5)"></div>
+              <div id="box6" name="2" class="box box6 gmd-3" onclick="eventBox(6)" onmouseover="changeColorOver(6)" onmouseout="changeColorOut(6)"></div>
+            </div>
+            <div id="line2">
+              <div id="box7" class="box box7 gmd-3" onmouseover="changeColorOver(7)" onmouseout="changeColorOut(7)"></div>
+              <div id="box8" name="3" class="box box8 gmd-3" onclick="eventBox(8)" onmouseover="changeColorOver(8)" onmouseout="changeColorOut(8)"></div>
+              <div id="box9" class="box box9 gmd-3" onmouseover="changeColorOver(9)" onmouseout="changeColorOut(9)"></div>
+              <div id="box10" name="4" class="box box10 gmd-3" onclick="eventBox(10)" onmouseover="changeColorOver(10)" onmouseout="changeColorOut(10)"></div>
+              <div id="box11" class="box box11 gmd-3" onmouseover="changeColorOver(11)" onmouseout="changeColorOut(11)"></div>
+              <div id="box12" name="5" class="box box12 gmd-3" onclick="eventBox(12)" onmouseover="changeColorOver(12)" onmouseout="changeColorOut(12)"></div>
+            </div>
+            <div id="line3">
+              <div id="box13" class="box box13 gmd-3" onmouseover="changeColorOver(13)" onmouseout="changeColorOut(13)"></div>
+              <div id="box14" name="6" class="box box14 gmd-3" onclick="eventBox(14)" onmouseover="changeColorOver(14)" onmouseout="changeColorOut(14)"></div>
+              <div id="box15" class="box box15 gmd-3" onmouseover="changeColorOver(15)" onmouseout="changeColorOut(15)"></div>
+              <div id="box16" name="7" class="box box16 gmd-3" onclick="eventBox(16)" onmouseover="changeColorOver(16)" onmouseout="changeColorOut(16)"></div>
+              <div id="box17" class="box box17 gmd-3" onmouseover="changeColorOver(17)" onmouseout="changeColorOut(17)"></div>
+              <div id="box18" name="8" class="box box18 gmd-3" onclick="eventBox(18)" onmouseover="changeColorOver(18)" onmouseout="changeColorOut(18)"></div>
+            </div>
+          </div>
+        </div>        
+        <div class="col-4 d-flex justify-content-start">
+          <div id="ninja" class="ninja">
+            <img id="ninja-img" src="../assets/img/n1.jpg" alt="ninja" width="80px">
+          </div>
         </div>
-        <div id="line2">
-          <div id="box7" class="box box7 gmd-3" onmouseover="changeColorOver(7)" onmouseout="changeColorOut(7)"></div>
-          <div id="box8" name="3" class="box box8 gmd-3" onclick="eventBox(8)" onmouseover="changeColorOver(8)" onmouseout="changeColorOut(8)"></div>
-          <div id="box9" class="box box9 gmd-3" onmouseover="changeColorOver(9)" onmouseout="changeColorOut(9)"></div>
-          <div id="box10" name="4" class="box box10 gmd-3" onclick="eventBox(10)" onmouseover="changeColorOver(10)" onmouseout="changeColorOut(10)"></div>
-          <div id="box11" class="box box11 gmd-3" onmouseover="changeColorOver(11)" onmouseout="changeColorOut(11)"></div>
-          <div id="box12" name="5" class="box box12 gmd-3" onclick="eventBox(12)" onmouseover="changeColorOver(12)" onmouseout="changeColorOut(12)"></div>
-        </div>
-        <div id="line3">
-          <div id="box13" class="box box13 gmd-3" onmouseover="changeColorOver(13)" onmouseout="changeColorOut(13)"></div>
-          <div id="box14" name="6" class="box box14 gmd-3" onclick="eventBox(14)" onmouseover="changeColorOver(14)" onmouseout="changeColorOut(14)"></div>
-          <div id="box15" class="box box15 gmd-3" onmouseover="changeColorOver(15)" onmouseout="changeColorOut(15)"></div>
-          <div id="box16" name="7" class="box box16 gmd-3" onclick="eventBox(16)" onmouseover="changeColorOver(16)" onmouseout="changeColorOut(16)"></div>
-          <div id="box17" class="box box17 gmd-3" onmouseover="changeColorOver(17)" onmouseout="changeColorOut(17)"></div>
-          <div id="box18" name="8" class="box box18 gmd-3" onclick="eventBox(18)" onmouseover="changeColorOver(18)" onmouseout="changeColorOut(18)"></div>
-        </div>
+      </div>      
       </div>
-    </div>
   </section>  
   <section id="cadastro" class="cadastro scrollspy">
     <span>

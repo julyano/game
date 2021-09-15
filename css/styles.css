@@ -199,8 +199,11 @@ section {
 
 @media only screen and (max-width: 480px){
   ul.topnav li.right, 
-  ul.topnav li {float: none;}
-  width: 100%;
+  ul.topnav li {
+    float: none;
+    width: 100%;
+  }
+  
   .container{
     width: 100%;
   }
@@ -317,14 +320,6 @@ section {
 
 .divbody {
   position: relative;
-  /*margin-top: auto;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
-  height: 550px;
-  
-  */
-  margin: auto;
   height: 300px;
   width: 300px;/*550px / 538px = 1,022304833*/
   background-color: rgba(6, 0, 0, 0.58)

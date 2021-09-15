@@ -25,6 +25,8 @@ app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+
 // CORS
 // This allows client applications from other domains use the API Server
 app.use(function(req, res, next) {
@@ -41,6 +43,7 @@ app.use(function(req, res, next) {
 
 app.use('/', api);
 
+app.use('/assets/img',express.static('assets/img'));
 app.use('/css',express.static('css'));
 app.use('/js',express.static('js'));
 app.use('/api',express.static('api'));

@@ -1,351 +1,794 @@
-//var teste3 = require('funcoes.js');
-var turn = 1;
-var played = [];// guarda todos os elementos clickados
-var elementsX = [];//
-var elementsO = [];
-var todosEl = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];// representa todos os elementos
+//let teste3 = require('funcoes.js');
+//<a href='https://br.freepik.com/vetores/projeto'>Projeto vetor criado por freepik - br.freepik.com</a>
+let turn = 1;
+let allPlays = [];// guarda todos os elementos clickados
+let player = [];//
+let opponent = [];
 
-var line1 = [1,2,3,4,5,6];
-var line2 = [7,8,9,10,11,12];
-var line3 = [13,14,15,16,17,18];
-var col1 = [1,2,7,8,13,14];
-var col2 = [3,4,9,10,15,16];
-var col3 = [5,6,11,12,17,18];
-var diag1 = [1,2,9,10,17,18];
-var diag2 = [5,6,9,10,13,14];
+let allElements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];// representa todos os elementos
+let line1 = [1, 2, 3, 4, 5, 6];
+let line2 = [7, 8, 9, 10, 11, 12];
+let line3 = [13, 14, 15, 16, 17, 18];
+let col1 = [1, 2, 7, 8, 13, 14];
+let col2 = [3, 4, 9, 10, 15, 16];
+let col3 = [5, 6, 11, 12, 17, 18];
+let diag1 = [1, 2, 9, 10, 17, 18];
+let diag2 = [5, 6, 9, 10, 13, 14];
 
-var tabuleiro = [line1,line2,line3,col1,col2,col3,diag1,diag2];
+let boardIds = [line1, line2, line3, col1, col2, col3, diag1, diag2];
 
-var line1X = 0;// representa a quantidade de X marcados na linha 1
-var line2X = 0;
-var line3X = 0;
-var diag1X = 0;
-var diag2X = 0;
-var col1X = 0;
-var col2X = 0;
-var col3X = 0;
-var sol = 0;
+let line1Player = 0;// representa a quantidade de X marcados na linha 1
+let line2Player = 0;
+let line3Player = 0;
+let diag1Player = 0;
+let diag2Player = 0;
+let col1Player = 0;
+let col2Player = 0;
+let col3Player = 0;
 
-var line1O = 0;
-var line2O = 0;
-var line3O = 0;
-var diag1O = 0;
-var diag2O = 0;
-var col1O = 0;
-var col2O = 0;
-var col3O = 0;
-var sol = 0;
+let line1Opponent = 0;
+let line2Opponent = 0;
+let line3Opponent = 0;
+let diag1Opponent = 0;
+let diag2Opponent = 0;
+let col1Opponent = 0;
+let col2Opponent = 0;
+let col3Opponent = 0;
+var solution = 0;
 
-var _vx = 0;
-var _vo = 0;
-var _emp = 0;
+let playerWins = 0;
+let opponentWins = 0;
+let empate = 0;
 
-/*var simb_ia = 0;
-var simb = 1;
-var tab = [0,0,0,0,0,0,0,0,0];
-var marcados = [0,0,0,0,0,0,0,0,0];
-*/
-function eventBox(id) {
-  var _id = id - 1;
+let symbolIA = 1;
+let symbolPlayer = 2;
+let board = [0,0,0,0,0,0,0,0,0];
+let marcados = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let q_marc = 0;
+let symbolEmpty = 0;
 
-  var x = animationX(id);
+let principalScore = 100000;
+let infinity = 1;
 
-  var box1 = x[0];
-  var box2 = x[1];
+async function eventBox(id) {
+  let _id = id - 1;
 
-  var id_ia;
-  var _id_ia;
+  let playerBrand = createPlayerAnimation(id);
 
-  if(turn == 1){    
-    if(played.indexOf(id) <= -1){
-      played.push(id);
-      document.querySelector('.box' + _id).onclick = box1.play();
-      document.querySelector('.box' + id).onclick = box2.play();
-      
-      sol = verificaSolucaoX(id);
-      var vitoria = document.getElementById('vitoria');
-      var vx = document.getElementById('vx');
-      var vo = document.getElementById('vo');
-      var vs = document.getElementById('vs');
-      vx.innerHTML = _vx + ' ';
-      vs.innerHTML = 'X ';
-      vo.innerHTML = _vo + ' ';
-      if(sol == 1){
-        vitoria.innerHTML = '\'X\' ganhou';
-        ++_vx;
-        var aux_x = ""+_vx;
-        vx.innerHTML = aux_x;
-        vitoria.opacity = 50;
+  let id_ia;
+  let _id_ia;
+
+  if (turn == 1) {
+    if (allPlays.indexOf(id) <= -1) {
+      allPlays.push(id);
+      document.querySelector('.box' + _id).onclick = playerBrand[0].play();
+      document.querySelector('.box' + id).onclick = playerBrand[1].play();
+
+      player.push(id);
+      solution = await checkPlayerSolution().then((res) => res)
+
+      player.forEach(clickedId => {
+        const position = (clickedId / 2) - 1;
+        board = replaceAt(board, position, symbolPlayer);
+      });
+
+      let victory = document.getElementById('victory');
+      let _playerWins = document.getElementById('playerWins');
+      let _opponentWins = document.getElementById('opponentWins');
+      let versus = document.getElementById('versus');
+      _playerWins.innerHTML = `${playerWins} `;
+      versus.innerHTML = 'X ';
+      _opponentWins.innerHTML = `${opponentWins} `;
+
+      if (solution == 1) {
+        victory.innerHTML = 'Você venceu!';
+        _playerWins.innerHTML = `${++playerWins}`;
+        victory.opacity = 50;
       }
-      
-      if(played.length <= 8 && sol != 1){
-        do {
-          id_ia = Math.floor((Math.random() * 17) + 1);
-          if(id_ia % 2 != 0) id_ia += 1;//se for impar, transforma para par
-        } while (played.indexOf(id_ia) > -1);
-        
-        played.push(id_ia);
+
+      if (allPlays.length <= 8 && solution != 1) {
+
+        if (allPlays.length <= 1) {
+          do {
+            id_ia = Math.floor((Math.random() * 17) + 1);
+            if (id_ia % 2 != 0) id_ia += 1;//se for impar, transforma para par
+          } while (allPlays.indexOf(id_ia) > -1);
+
+          board = replaceAt(board, ((id_ia / 2) - 1) , symbolIA);
+        } else {
+          let melhorJogada = await findBestMove().then((res) => res);
+          board = replaceAt(board, melhorJogada , symbolIA);
+          id_ia = 2 * (melhorJogada + 1);
+        }
+
+        allPlays.push(id_ia);
         _id_ia = id_ia - 1;
 
-        var o = animationO(id_ia);
+        let opponentBrand = createOpponentAnimation(id_ia);
 
-        var box3 = o[0];  
-        var box4 = o[1];
+        await changeColorElement(document.querySelector('.box' + id_ia));
+        await changeColorElement(document.querySelector('.box' + _id_ia));
 
-        changeColorElement(document.querySelector('.box' + id_ia));
-        changeColorElement(document.querySelector('.box' + _id_ia));
+        document.querySelector('.box' + _id_ia).onclick = await opponentBrand[0].play();
+        document.querySelector('.box' + id_ia).onclick = await opponentBrand[1].play();
 
-        document.querySelector('.box' + _id_ia).onclick = box3.play();
-        document.querySelector('.box' + id_ia).onclick = box4.play();
+        if (playerWins >= opponentWins) {
+          document.getElementById('ninja-img').src = '../assets/img/n4.png'; 
+          setTimeout(function(){ 
+            document.getElementById("ninja-img").src = '../assets/img/n3.png';
+            //ninjaAnimation().play;
+          }, 500);
+        } else {
+          document.getElementById('ninja-img').src = '../assets/img/n6.png'; 
+          setTimeout(function(){ 
+            document.getElementById("ninja-img").src = '../assets/img/n5.png';
+            //ninjaAnimation().play;
+          }, 500);
+        }
+
+
+        opponent.push(id_ia);
+        solution = await checkOpponentSolution().then((res) => res);
+        //let posicaoIA = await vme(-1).then((res) => res);
         
-        
-        
-        sol = verificaSolucaoO(id_ia);
-        if(sol == 2){
-          vitoria.innerHTML = '\'O\' ganhou';
-          ++_vo;
-          var aux_o = ""+_vo;
-          vo.innerHTML = aux_o;
-          vitoria.opacity = 50;
+        if (solution == 2) {
+          victory.innerHTML = 'O oponente venceu!';
+          _opponentWins.innerHTML = `${++opponentWins}`;
+          victory.opacity = 50;
         }
       }
 
-      if(played.length == 9 && sol != 2 && sol != 1){
-        ++_emp;
-        var aux_emp = ""+_emp;
-        vitoria.innerHTML = aux_emp +' Empate';
-        vx.innerHTML = '';
-        vo.innerHTML = '';
-        vs.innerHTML = '';
-        vitoria.opacity = 50;
+      if (allPlays.length == 9 && solution != 2 && solution != 1) {
+        victory.innerHTML = `${++empate} Empate`;
+        _playerWins.innerHTML = '';
+        _opponentWins.innerHTML = '';
+        versus.innerHTML = '';
+        victory.opacity = 50;
       }
     }
   }
 };
 
-function changeColorOver(id){
-  var el1 = document.querySelector('.box'+(id-1));
-  el1.style.opacity = 0.5;
+/*function verifica_sol(tb) {
+  let _posicao = 0;
+  let linha1 = 0;
+  let linha2 = 0;
+  let linha3 = 0;
+  let diagonal1 = 0;
+  let diagonal2 = 0;
+  let coluna1 = 0;
+  let coluna2 = 0;
+  let coluna3 = 0;
+  let linha1ia = 0;
+  let linha2ia = 0;
+  let linha3ia = 0;
+  let diag1ia = 0;
+  let diag2ia = 0;
+  let col1ia = 0;
+  let col2ia = 0;
+  let col3ia = 0;
 
-  var el2 = document.querySelector('.box'+id);
-  el2.style.opacity = 0.5;
+  tb.forEach(function (_simb) {
+    if (_simb == symbolIA) {
+      if (_posicao == 0 || _posicao == 1 || _posicao == 2) ++linha1ia;
+
+      if (linha1ia == 3) return symbolIA;
+
+      if (_posicao == 3 || _posicao == 4 || _posicao == 5) ++linha2ia;
+
+      if (linha2ia == 3) return symbolIA;
+
+      if (_posicao == 6 || _posicao == 7 || _posicao == 8) ++linha3ia;
+
+      if (linha3ia == 3) return symbolIA;
+
+      if (_posicao == 0 || _posicao == 4 || _posicao == 8) ++diag1ia;
+
+      if (diag1ia == 3) return symbolIA;
+
+      if (_posicao == 2 || _posicao == 4 || _posicao == 6) ++diag2ia;
+
+      if (diag2ia == 3) return symbolIA;
+
+      if (_posicao == 0 || _posicao == 3 || _posicao == 6) ++col1ia;
+
+      if (col1ia == 3) return symbolIA;
+
+      if (_posicao == 1 || _posicao == 4 || _posicao == 7) ++col2ia;
+
+      if (col2ia == 3) return symbolIA;
+
+      if (_posicao == 2 || _posicao == 5 || _posicao == 8) ++col3ia;
+
+      if (col3ia == 3) return symbolIA;
+    }
+
+    if (_simb == symbolPlayer) {
+      if (_posicao == 0 || _posicao == 1 || _posicao == 2) ++linha1;
+
+      if (linha1 == 3) return symbolPlayer;
+
+      if (_posicao == 3 || _posicao == 4 || _posicao == 5) ++linha2;
+
+      if (linha2 == 3) return symbolPlayer;
+
+      if (_posicao == 6 || _posicao == 7 || _posicao == 8) ++linha3;
+
+      if (linha3 == 3) return symbolPlayer;
+
+      if (_posicao == 0 || _posicao == 4 || _posicao == 8) ++diagonal1;
+
+      if (diagonal1 == 3) return symbolPlayer;
+
+      if (_posicao == 2 || _posicao == 4 || _posicao == 6) ++diagonal2;
+
+      if (diagonal2 == 3) return symbolPlayer;
+
+      if (_posicao == 0 || _posicao == 3 || _posicao == 6) ++coluna1;
+
+      if (coluna1 == 3) return symbolPlayer;
+
+      if (_posicao == 1 || _posicao == 4 || _posicao == 7) ++coluna2;
+
+      if (coluna2 == 3) return symbolPlayer;
+
+      if (_posicao == 2 || _posicao == 5 || _posicao == 8) ++coluna3;
+
+      if (coluna3 == 3) return symbolPlayer;
+    }
+
+    ++_posicao;
+  }, this);
+
+  return 0;
+}*/
+
+/*async function me(_tab, n, profundidade, t, posicao, fator) {
+  let solucao = 0;
+  let ftAux = fator;
+
+  _tab = (t == -1) ? replaceAt(_tab, posicao, symbolIA) : replaceAt(_tab, posicao, symbolPlayer);
+
+  marcados = replaceAt(marcados, posicao, 1);
+  ++q_marc;
+  solucao = verifica_sol(_tab);
+
+  if (solucao == 1 || solucao == 2) {
+    _tab = replaceAt(_tab, posicao, symbolEmpty);
+    marcados = replaceAt(marcados, posicao, 0);
+    --q_marc;
+
+    if (solucao == 1) {
+      return profundidade + fator;
+    }
+
+    if (solucao == 2) {
+      return profundidade - fator;
+    }
+    
+  } else {
+    if (q_marc == n) {// em caso de empate
+      return profundidade + fator;
+    }
+
+    t *= -1;
+
+    let result = 0;
+
+    for (let i = 0; i < n; ++i) {// deep
+      if (_tab[i] == symbolEmpty) {// existe a posicao (i + 1) vazia?
+        //avalia solucao nesta posicao e atualiza fator
+        result = await me(_tab, n, profundidade + 1, t, i, fator).then((res) => res);
+        _tab = replaceAt(_tab, i, symbolEmpty);
+        marcados = replaceAt(marcados, i, 0);
+        --q_marc;
+
+        if (t === -1) {//minimizacao
+          if (result < ftAux) {
+            ftAux = result;
+          }
+        } else {
+          if (result > ftAux) {
+            ftAux = result;
+          }
+        }
+
+      }
+    }
+
+    _tab = replaceAt(_tab, posicao, symbolEmpty);
+    marcados = replaceAt(marcados, posicao, 0);
+    --q_marc;
+  }
+
+
+  return ftAux;
+
+}*/
+
+/*async function vme(turno) {
+
+  let menor = 10;
+  let fator = -10;
+  let result = 0;
+  let posicao = 0;
+  let tab = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  player.forEach(element => {
+    const posx = (element / 2) - 1;
+    tab = replaceAt(tab, posx, 2);//Object.assign([], tab, {posx: 2});
+  });
+
+  opponent.forEach(element => {
+    const poso = (element / 2) - 1;
+    tab = replaceAt(tab, poso, 1);
+  });
+
+  let vetor = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+  let tabaux = tab;
+
+  for (let i = 0; i < vetor.length; i++) {
+    if (tab[i] == symbolEmpty) {
+      result = await me(tabaux, tabaux.length, 1, turno, i, fator).then((res) => res)// i = posicao a ser avaliada
+      if (result < menor) {
+        menor = result;
+        posicao = i;
+      }
+    }
+  }s
+
+  return posicao;
+}*/
+
+function isMovesLeft() { 
+	for (let i = 0; i < 9; ++i) 
+			if (board[i] == symbolEmpty) 
+				return true; 
+	return false; 
+} 
+
+function evaluate() { 
+	for (let row = 0; row < 7; row += 3) { 
+		if (board[row] == board[row + 1] && 
+			board[row + 1] == board[row + 2]){ 
+			if (board[row] == symbolPlayer) 
+				return +principalScore; 
+			else if (board[row] == symbolIA) 
+				return -principalScore; 
+		} 
+	} 
+
+	for (let col = 0; col < 3; ++col){ 
+		if (board[col]==board[col + 3] && 
+			board[col + 3]==board[col + 6]){ 
+			if (board[col] == symbolPlayer) 
+				return +principalScore;
+			else if (board[col] == symbolIA) 
+				return -principalScore; 
+		} 
+	} 
+
+	if (board[0] == board[4] && board[4] == board[8]){ 
+		if (board[0] == symbolPlayer) 
+			return +principalScore; 
+		else if (board[0] == symbolIA) 
+			return -principalScore; 
+	} 
+
+	if (board[2] == board[4] && board[4] == board[6]){ 
+		if (board[2] == symbolPlayer) 
+			return +principalScore; 
+		else if (board[2] == symbolIA) 
+			return -principalScore; 
+	} 
+
+	return 0; 
 }
 
-function changeColorOut(id){
-  var el1 = document.querySelector('.box'+(id-1));
-  el1.style.opacity = 80;
+async function maxmin2(depth, isMin) { 
+	let score = evaluate();
+	let best = -infinity;
+	let turnPlayer = symbolPlayer;
 
-  var el2 = document.querySelector('.box'+id);
-  el2.style.opacity = 80;
+	if (score == principalScore) 
+		return score + depth; 
+
+	if (score == -principalScore) 
+		return score - depth; 
+
+	if (isMovesLeft() == false)
+		return 0;
+
+	if (isMin){ 
+		best = infinity;
+		turnPlayer = symbolIA;
+	}
+
+	for (let i = 0; i < 3; i++){ 
+			if (board[i] == symbolEmpty){ 
+				board = replaceAt(board, i, turnPlayer); 
+        const compare = await maxmin(depth+1, !isMin).then((res) => res);
+				best = (isMin)? Math.min(best, compare) : Math.max(best, compare);
+				board = replaceAt(board, i, symbolEmpty); 
+			} 
+	}  
+	
+	return best; 
 }
 
-function changeColorElement(el){
+async function maxmin(depth, isMax) { 
+	let score = evaluate();
+	let best = infinity;
+	let turnPlayer = symbolPlayer;
+
+	if (score == principalScore) 
+		return score - depth; 
+
+	if (score == -principalScore) 
+		return score + depth; 
+
+	if (isMovesLeft() == false)
+		return 0;
+
+	if (isMax){ 
+		best = -infinity;
+		turnPlayer = symbolIA;
+	}
+
+	for (let i = 0; i < 9; ++i){ 
+			if (board[i] == symbolEmpty){ 
+				board = replaceAt(board, i, turnPlayer); 
+        const compare = await maxmin(depth+1, !isMax).then((res) => res);
+				best = (isMax)? Math.max(best, compare) : Math.min(best, compare);
+				board = replaceAt(board, i, symbolEmpty); 
+			} 
+	}  
+	
+	return best; 
+}
+
+async function minimax(depth, isMax) { 
+	let score = evaluate();
+	let best = infinity;
+	let turnPlayer = symbolIA;
+
+	if (score == principalScore) 
+		return score - depth; 
+
+	if (score == -principalScore) 
+		return score + depth; 
+
+	if (isMovesLeft() == false)
+		return 0;
+
+	if (isMax){ 
+		best = -infinity;
+		turnPlayer = symbolPlayer;
+	}
+
+	for (let i = 0; i < 9; i++){ 
+			if (board[i] == symbolEmpty){ 
+				board = replaceAt(board, i, turnPlayer); 
+        const compare = await minimax(depth+1, !isMax).then((res) => res);
+				best = (isMax)? Math.max(best, compare) : Math.min(best, compare);
+				board = replaceAt(board, i, symbolEmpty); 
+			} 
+	}  
+	
+	return best; 
+}
+
+async function findBestMove() { 
+	let bestVal = infinity; 
+  let maiorValorIA;
+	let bestMove = -1;
+  let bestMoveIA;
+	let toMinimizer = false;
+
+	for (let i = 0; i < 9; ++i){ 
+      console.log('board[i] = ', board[i], ' POSICAO = ', i);
+			if (board[i] == symbolEmpty){ 
+				board = replaceAt(board, i, symbolIA);
+				let moveVal = await minimax(0, toMinimizer).then((res) => res);
+				board = replaceAt(board, i, symbolEmpty); 
+        
+        console.log('posicao = ', i, ' moveVal = ', moveVal);
+        console.log('bestVal = ', bestVal);        
+
+				if (moveVal <= bestVal){ 
+					bestMove = i; 
+					bestVal = moveVal; 
+				} 
+
+			} 
+	}  
+
+  //return bestMove; 
+  maiorValorIA = bestVal;
+  bestMoveIA = bestMove;
+  //board = replaceAt(board, bestMoveIA, symbolIA);
+
+  console.log('board = ', board);
+  console.log('melhor jogada MAX = ', bestMove);
+
+  //if (bestMove == -1) {
+    bestVal = infinity; 
+    for (let i = 0; i < 9; ++i){ 
+			if (board[i] == symbolEmpty){ 
+				board = replaceAt(board, i, symbolPlayer);
+				let moveVal = await maxmin(0, toMinimizer).then((res) => res);
+				board = replaceAt(board, i, symbolEmpty); 
+
+				if (moveVal <= bestVal){ 
+					bestMove = i; 
+					bestVal = moveVal; 
+				} 
+
+			} 
+	  }
+    console.log('maiorValorIA = ', maiorValorIA);
+    console.log('bestVal = ', bestVal);
+    board = replaceAt(board, bestMoveIA, symbolEmpty);
+    if (maiorValorIA > bestVal) {
+      bestMoveIA = bestMove;
+    }
+    console.log('melhor jogada MIN = ', bestMoveIA);
+  //}
+
+  /*if (bestMoveIA == -1) {
+    console.log('notnull');
+    for (let i = 8; i >= 0 ; --i){
+      if (board[i] == symbolEmpty) {
+        return i;
+      }
+    }
+  }*/
+
+
+  return bestMoveIA;
+}
+
+function replaceAt(array, index, value) {
+  const ret = array.slice(0);
+  ret[index] = value;
+  return ret;
+}
+
+function changeColorOver(id) {
+  let el1 = document.querySelector('.box' + (id - 1));
+  
+  if (!isNull(el1)) {
+    el1.style.opacity = 0.5;
+  }
+
+  let el2 = document.querySelector('.box' + id);
+  
+  if (!isNull(el2)) { 
+    el2.style.opacity = 0.5;
+  }
+}
+
+function changeColorOut(id) {
+  let el1 = document.querySelector('.box' + (id - 1));
+
+  if (!isNull(el1)) {
+    el1.style.opacity = 80;
+  }
+
+  let el2 = document.querySelector('.box' + id);
+  
+  if (!isNull(el2)) {
+    el2.style.opacity = 80;
+  }
+}
+
+async function changeColorElement(el) {
+  if (isNull(el)) return;
   el.style.backgroundColor = "#CBCBCB";
 }
 
-function verificaSolucaoX(id){
-  elementsX.push(id);
-  
-  elementsX.forEach(function(element) {
-    if(element == 2 || element == 4 || element == 6) ++line1X;
-    if(line1X == 3){
-      mostrarSol(tabuleiro[0]);
-      sol = 1;
-      return sol;
-    } 
-    if(element == 8 || element == 10 || element == 12) ++line2X;
-    if(line2X == 3) {
-      mostrarSol(tabuleiro[1]);
-      sol = 1;
-      return sol;
-    } 
-    if(element == 14 || element == 16 || element == 18) ++line3X;
-    if(line3X == 3) {
-      mostrarSol(tabuleiro[2]);
-      sol = 1;
-      return sol;
-    } 
-
-
-
-    if(element == 2 || element == 10 || element == 18) ++diag1X;
-    if(diag1X == 3) {
-      mostrarSol(tabuleiro[6]);
-      sol = 1;
-      return sol;
-    } 
-    if(element == 6 || element == 10 || element == 14) ++diag2X;
-    if(diag2X == 3) {
-      mostrarSol(tabuleiro[7]);
-      sol = 1;
-      return sol;
-    } 
-
-    if(element == 2 || element == 8 || element == 14) ++col1X;
-    if(col1X == 3) {
-      mostrarSol(tabuleiro[3]);
-      sol = 1;
-      return sol;
-    } 
-    if(element == 4 || element == 10 || element == 16) ++col2X;
-    if(col2X == 3) {
-      mostrarSol(tabuleiro[4]);
-      sol = 1;
-      return sol;
-    } 
-    if(element == 6 || element == 12 || element == 18) ++col3X;
-    if(col3X == 3) {
-      mostrarSol(tabuleiro[5]);
-      sol = 1;
-      return sol;
-    } 
-  }, this);
-
-  line1X = 0;
-  line2X = 0;
-  line3X = 0;
-  diag1X = 0;
-  diag2X = 0;
-  col1X = 0;
-  col2X = 0;
-  col3X = 0;
-
-  return sol; 
+function isNull(el) {
+  return (el === null || el === undefined);
 }
 
-function verificaSolucaoO(id){
-  elementsO.push(id);
-  
-  elementsO.forEach(function(element) {
-    if(element == 2 || element == 4 || element == 6) ++line1O;
-    if(line1O == 3) {
-      mostrarSol(tabuleiro[0]);
-      sol = 2;
-      return sol;
-    } 
-    if(element == 8 || element == 10 || element == 12) ++line2O;
-    if(line2O == 3) {
-      mostrarSol(tabuleiro[1]);
-      sol = 2;
-      return sol;
-    } 
-    if(element== 14 || element == 16 || element == 18) ++line3O;
-    if(line3O == 3) {
-      mostrarSol(tabuleiro[2]);
-      sol = 2;
-      return sol;
-    } 
+async function checkPlayerSolution() {
+  let sol = 1;
 
-    if(element == 2 || element == 10 || element == 18) ++diag1O;
-    if(diag1O == 3) {
-      mostrarSol(tabuleiro[6]);
-      sol = 2;
-      return sol;
-    } 
-    if(element == 6 || element == 10 || element == 14) ++diag2O;
-    if(diag2O == 3) {
-      mostrarSol(tabuleiro[7]);
-      sol = 2;
-      return sol;
-    } 
-
-    if(element == 2 || element == 8 || element == 14) ++col1O;
-    if(col1O == 3) {
-      mostrarSol(tabuleiro[3]);
-      sol = 2;
-      return sol;
-    } 
-    if(element == 4 || element == 10 || element == 16) ++col2O;
-    if(col2O == 3) {
-      mostrarSol(tabuleiro[4]);
-      sol = 2;
-      return sol;
-    } 
-    if(element == 6 || element == 12 || element == 18) ++col3O;
-    if(col3O == 3) {
-      mostrarSol(tabuleiro[5]);
-      sol = 2;
-      return sol;
-    } 
-  }, this);
-
-  line1O = 0;
-  line2O = 0;
-  line3O = 0;
-  diag1O = 0;
-  diag2O = 0;
-  col1O = 0;
-  col2O = 0;
-  col3O = 0;
-
-  return sol; 
-}
-
-function mostrarSol(array){
-  
-  for(i = 0;i < todosEl.length;++i){    
-    if(array.indexOf(i+1) <= -1 ){
-      var element = document.querySelector('.box' + (i+1));
-      element.style.opacity = 0.2;
-      element.style.pointerEvents = 'none';            
+  player.forEach(function (clickedId) {
+    if (clickedId == 2 || clickedId == 4 || clickedId == 6) ++line1Player;
+    if (line1Player == 3) {
+      solution = sol;
+      showSolution(boardIds[0]);
+      return solution;
     }
-  }
+    if (clickedId == 8 || clickedId == 10 || clickedId == 12) ++line2Player;
+    if (line2Player == 3) {
+      solution = sol;
+      showSolution(boardIds[1]);
+      return solution;
+    }
+    if (clickedId == 14 || clickedId == 16 || clickedId == 18) ++line3Player;
+    if (line3Player == 3) {
+      solution = sol;
+      showSolution(boardIds[2]);
+      return solution;
+    }
+
+    if (clickedId == 2 || clickedId == 10 || clickedId == 18) ++diag1Player;
+    if (diag1Player == 3) {
+      solution = sol;
+      showSolution(boardIds[6]);
+      return solution;
+    }
+    if (clickedId == 6 || clickedId == 10 || clickedId == 14) ++diag2Player;
+    if (diag2Player == 3) {
+      solution = sol;
+      showSolution(boardIds[7]);
+      return solution;
+    }
+
+    if (clickedId == 2 || clickedId == 8 || clickedId == 14) ++col1Player;
+    if (col1Player == 3) {
+      solution = sol;
+      showSolution(boardIds[3]);
+      return solution;
+    }
+    if (clickedId == 4 || clickedId == 10 || clickedId == 16) ++col2Player;
+    if (col2Player == 3) {
+      solution = sol;
+      showSolution(boardIds[4]);
+      return solution;
+    }
+    if (clickedId == 6 || clickedId == 12 || clickedId == 18) ++col3Player;
+    if (col3Player == 3) {
+      solution = sol;
+      showSolution(boardIds[5]);
+      return solution;
+    }
+  }, this);
+
+  line1Player = 0;
+  line2Player = 0;
+  line3Player = 0;
+  diag1Player = 0;
+  diag2Player = 0;
+  col1Player = 0;
+  col2Player = 0;
+  col3Player = 0;
+
+  return solution;
 }
 
-function novoJogo() {
-  var els = document.querySelectorAll('#tabuleiro .box');
-  var els_len = els.length;
-  var parent;
-  var idx = 1;
-  for(i = 1;i <= els_len;++i){
-    if(i == 7 || i == 13) ++idx;
-    var el = document.getElementById('box'+i);
-    parent = document.getElementById('line'+idx); 
+async function checkOpponentSolution() {
+  let sol = 2;
+
+  opponent.forEach(function (clickedId) {
+    if (clickedId == 2 || clickedId == 4 || clickedId == 6) ++line1Opponent;
+    if (line1Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[0]);
+      return solution;
+    }
+    if (clickedId == 8 || clickedId == 10 || clickedId == 12) ++line2Opponent;
+    if (line2Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[1]);
+      return solution;
+    }
+    if (clickedId == 14 || clickedId == 16 || clickedId == 18) ++line3Opponent;
+    if (line3Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[2]);
+      return solution;
+    }
+
+    if (clickedId == 2 || clickedId == 10 || clickedId == 18) ++diag1Opponent;
+    if (diag1Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[6]);
+      return solution;
+    }
+    if (clickedId == 6 || clickedId == 10 || clickedId == 14) ++diag2Opponent;
+    if (diag2Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[7]);
+      return solution;
+    }
+
+    if (clickedId == 2 || clickedId == 8 || clickedId == 14) ++col1Opponent;
+    if (col1Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[3]);
+      return solution;
+    }
+    if (clickedId == 4 || clickedId == 10 || clickedId == 16) ++col2Opponent;
+    if (col2Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[4]);
+      return solution;
+    }
+    if (clickedId == 6 || clickedId == 12 || clickedId == 18) ++col3Opponent;
+    if (col3Opponent == 3) {
+      solution = sol;
+      showSolution(boardIds[5]);
+      return solution;
+    }
+  }, this);
+
+  line1Opponent = 0;
+  line2Opponent = 0;
+  line3Opponent = 0;
+  diag1Opponent = 0;
+  diag2Opponent = 0;
+  col1Opponent = 0;
+  col2Opponent = 0;
+  col3Opponent = 0;
+
+  return solution;
+}
+
+
+
+function newGame() {
+  let sizeElements = document.querySelectorAll('#tabuleiro .box').length;
+  let parent;
+  let idx = 1;
+
+  if (playerWins >= opponentWins) {
+    document.getElementById("ninja-img").src = '../assets/img/n3.png';
+  } else {
+    document.getElementById("ninja-img").src = '../assets/img/n5.png';
+  }
+
+  for (let i = 1; i <= sizeElements; ++i) {
+    if (i == 7 || i == 13) ++idx;
+    let el = document.getElementById('box' + i);
+    parent = document.getElementById('line' + idx);
     parent.removeChild(el);
-    
+
   }
 
   idx = 1;
-  var name = 0;
+  let name = 0;
 
-  for(j = 1;j <= els_len;++j){      
-    if(j == 7 || j == 13) ++idx;
-    var div = document.createElement('div');
-    div.id = 'box'+j;
-    div.className = 'box box'+j+' gmd-3';  
-    var atts = []; 
+  for (let j = 1; j <= sizeElements; ++j) {
+    if (j == 7 || j == 13) ++idx;
+    let div = document.createElement('div');
+    div.id = 'box' + j;
+    div.className = 'box box' + j + ' gmd-3';
+    let atts = [];
 
-    if(j % 2 == 0){
-      var att1 = document.createAttribute("onclick");
-      att1.value = "eventBox("+j+")";
+    if (j % 2 == 0) {
+      let att1 = document.createAttribute("onclick");
+      att1.value = "eventBox(" + j + ")";
       atts.push(att1);
-      var att2 = document.createAttribute("name");
+      let att2 = document.createAttribute("name");
       att2.value = name;
       atts.push(att2);
       ++name;
-    }    
-    var att3 = document.createAttribute("onmouseover");
-    att3.value = "changeColorOver("+j+")";
-    var att4 = document.createAttribute("onmouseout");
-    att4.value = "changeColorOut("+j+")";  
+    }
+    let att3 = document.createAttribute("onmouseover");
+    att3.value = "changeColorOver(" + j + ")";
+    let att4 = document.createAttribute("onmouseout");
+    att4.value = "changeColorOut(" + j + ")";
     atts.push(att3);
     atts.push(att4);
 
-    atts.forEach(function(att) {
+    atts.forEach(function (att) {
       div.setAttributeNode(att);
     }, this);
-    
-    document.getElementById("line"+idx).appendChild(div);
-    
+
+    document.getElementById("line" + idx).appendChild(div);
+
   }
-  
+
   init();
 }
 
-function init(){
-  var els = document.querySelectorAll('#tabuleiro .box');
-  var box = defaultValues(els);
-  
+function init() {
+  let els = document.querySelectorAll('#tabuleiro .box');
+  let box = defaultValues(els);
+
   /*if (typeof dtb.getDataBindign != "undefined" || dtb.getDataBinding != null) {
     if(dtb.getDataBinding.indexOf('loginmail') > -1){
       login = dtb.getDataBinding.getItem('loginmail');
@@ -356,51 +799,59 @@ function init(){
   varDefaultValues();
 }
 
-function novoJogo4(){
-  var els = document.querySelectorAll('#tabuleiro .box');
-  var box = defaultValues(els);
-  box.play();
+function showSolution(array) {
+  for (let i = 0; i < allElements.length; ++i) {
+      if (array.indexOf(i + 1) <= -1) {
+      let element = document.querySelector('.box' + (i + 1));
+      element.style.opacity = 0.2;
+      element.style.pointerEvents = 'none';
+      }
+  }
 }
 
-function varDefaultValues(){
-  document.getElementById('vitoria').innerHTML = 'Placar: ';
-  played = [];
-  elementsX = [];
-  elementsO = [];
+function varDefaultValues() {
+  document.getElementById('victory').innerHTML = 'Placar: ';
+  allPlays = [];
+  player = [];
+  opponent = [];
 
-  line1X = 0;
-  line2X = 0;
-  line3X = 0;
-  diag1X = 0;
-  diag2X = 0;
-  col1X = 0;
-  col2X = 0;
-  col3X = 0;
-  
-  line1O = 0;
-  line2O = 0;
-  line3O = 0;
-  diag1O = 0;
-  diag2O = 0;
-  col1O = 0;
-  col2O = 0;
-  col3O = 0;
-  sol = 0;
+  line1Player = 0;
+  line2Player = 0;
+  line3Player = 0;
+  diag1Player = 0;
+  diag2Player = 0;
+  col1Player = 0;
+  col2Player = 0;
+  col3Player = 0;
 
-  var vitoria = document.getElementById('vitoria');
-  var vx = document.getElementById('vx');
-  var vo = document.getElementById('vo');
-  var vs = document.getElementById('vs');
-  vx.innerHTML = _vx + ' ';
-  vs.innerHTML = 'X ';
-  vo.innerHTML = _vo + ' ';
+  line1Opponent = 0;
+  line2Opponent = 0;
+  line3Opponent = 0;
+  diag1Opponent = 0;
+  diag2Opponent = 0;
+  col1Opponent = 0;
+  col2Opponent = 0;
+  col3Opponent = 0;
+  solution = 0;
 
+  let _playerWins = document.getElementById('playerWins');
+  let _opponentWins = document.getElementById('opponentWins');
+  let versus = document.getElementById('versus');
+  _playerWins.innerHTML = `${playerWins} `;
+  versus.innerHTML = 'X ';
+  _opponentWins.innerHTML = `${opponentWins} `;
+
+  for (let index = 0; index < board.length; index++) {
+    board = replaceAt(board, index, symbolEmpty);
+  }
+
+  principalScore = 100000;
+  infinity = 1;
 }
 
-
-function defaultValues(el){
-  var box = anime({
-    targets: el,
+function defaultValues(element) {
+  let box = anime({
+    targets: element,
     backgroundColor: '#4CAF50',
     delay: 20,
     duration: '1000',
@@ -418,10 +869,9 @@ function defaultValues(el){
   return box;
 }
 
-function animationX(id){
-  var x = [];
-  var box1 = anime({
-    targets: 'div.box.box' + (id-1),
+function createPlayerAnimation(id) {
+  let box1 = anime({
+    targets: `div.box.box${id - 1}`,
     delay: 20,
     duration: '1000',
     width: '10px',
@@ -437,8 +887,8 @@ function animationX(id){
     autoplay: false
   });
 
-  var box2 = anime({
-    targets: 'div.box.box' + id ,
+  let box2 = anime({
+    targets: `div.box.box${id}`,
     delay: 20,
     duration: '1000',
     width: '10px',
@@ -454,14 +904,26 @@ function animationX(id){
     autoplay: false
   });
 
-  x = [box1,box2];
-  return x;
+  return [box1, box2];
 }
 
-function animationO(id_ia){
-  var o = [];
-  var box3 = anime({
-    targets: 'div.box.box' + (id_ia - 1),
+function ninjaAnimation() {
+  return anime({
+    targets: 'div.ninja',
+    delay: 20,
+    translateX: [
+      { value: 0, duration: 50 },
+    ],
+    duration: '1000',
+    width: '50px',
+    rotate: '10turn',
+    autoplay: false
+  });
+}
+
+function createOpponentAnimation(id_ia) {
+  let box3 = anime({
+    targets: `div.box.box${id_ia - 1}`,
     delay: 20,
     duration: '1000',
     width: '50px',
@@ -474,12 +936,12 @@ function animationO(id_ia){
     autoplay: false
   });
 
-  var box4 = anime({
-    targets: 'div.box.box' + id_ia,
+  let box4 = anime({
+    targets: `div.box.box${id_ia}`,
     delay: 20,
     duration: '1000',
-    width: '50px', 
-    height: '50px',     
+    width: '50px',
+    height: '50px',
     translateX: [
       { value: 0, duration: 50 },
     ],
@@ -488,13 +950,11 @@ function animationO(id_ia){
     autoplay: false
   });
 
-  o = [box3,box4];
-  return o;
+  return [box3, box4];
 }
 
-
-function show(){
-  console.log('PLAYED = '+played);
-  console.log('ELX = '+elementsX);
-  console.log('ELO = '+elementsO);
+function show() {
+  console.log('PLAYED = ', allPlays);
+  console.log('ELX = ', player);
+  console.log('ELO = ', opponent);
 }
