@@ -554,7 +554,7 @@ function replaceAt(array, index, value) {
   return ret;
 }
 
-function changeColorOver(id) {
+/*function changeColorOver(id) {
   let el1 = document.querySelector('.box' + (id - 1));
   
   if (!isNull(el1)) {
@@ -580,7 +580,7 @@ function changeColorOut(id) {
   if (!isNull(el2)) {
     el2.style.opacity = 80;
   }
-}
+}*/
 
 async function changeColorElement(el) {
   if (isNull(el)) return;

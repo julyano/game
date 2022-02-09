@@ -151,7 +151,16 @@ ul.topnav li.right {  float: right;}
 .navbar a.right {  float: right;}
 
 .container {
+  position: relative;
+  text-align: center;
   width: 100%;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 section{  
